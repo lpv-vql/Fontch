@@ -6,7 +6,7 @@
   <title>ScratchFontダウンロードサイト</title>
   <style>
     body {
-      font-family: Arial, 游ゴシック;
+      font-family: Arial, 游明朝;
       text-align: center;
       margin-top: 50px;
     }
@@ -21,16 +21,18 @@
   </style>
 </head>
 <body>
+<a href="https://lpv-vql.github.io/lpv_vql-tool/">←ツール一覧へ</a>
 <h1>scratchにないフォントを使えるツール</h1>
 <label for="fontFamily">フォント名:</label>
-<input type="text" id="fontFamily" placeholder="游ゴシック" value="游ゴシック" oninput="updatePreview()">
+<input type="text" id="fontFamily" placeholder="游明朝" value="游明朝" oninput="updatePreview()">
 <br><br>
 <label for="inputText">テキスト:</label>
 <input type="text" id="inputText" placeholder="任意のTEXT" value="任意のTEXT" oninput="updatePreview()">
 <div id="previewText">任意のTEXT</div>
 <br><br>
 <button onclick="downloadSVG()">SVGをダウンロード</button>
-
+<p>※ダウンロードされたファイルをscratchのコスチュームでアップロードしてください。</p>
+  
 <script>
   function updatePreview() {
     const fontFamily = document.getElementById("fontFamily").value;
