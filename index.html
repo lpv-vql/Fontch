@@ -3,69 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScratchFontダウンロードサイト</title>
+  <title>Fontch</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin: 0;
+      padding: 20px;
+      background: white;
+      color: black;
     }
-    textarea {
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      background: #f9f9f9;
+    }
+    input, button {
       width: 80%;
-      height: 150px;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
     }
     #previewText {
-      font-size: 40px;
+      font-size: 30px;
       margin: 20px 0;
+      padding: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      display: inline-block;
+      min-width: 200px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
-<a href="https://lpv-vql.github.io/lpv_vql-tool/">←ツール一覧へ</a>
-<h1>scratchにないフォントを使えるツール</h1>
-<label for="fontFamily">フォント名:</label>
-<input type="text" id="fontFamily" placeholder="游明朝" value="游明朝" oninput="updatePreview()">
-<br><br>
-<label for="inputText">テキスト:</label>
-<input type="text" id="inputText" placeholder="任意のTEXT" value="任意のTEXT" oninput="updatePreview()">
-<div id="previewText">任意のTEXT</div>
-<br><br>
-<button onclick="downloadSVG()">SVGをダウンロード</button>
-<p>※ダウンロードされたファイルをscratchのコスチュームでアップロードしてください。</p>
+  <div class="container">
+    <h1>Fontch</h1>
+    <p>Scratchにないフォントを使えるツール</p>
+    <p>A tool that allows you to use fonts not available on Scratch</p>
+    <label for="fontFamily">Font Name:</label>
+    <input type="text" id="fontFamily" placeholder="Font Name" value="Arial" oninput="updatePreview()">
+    <label for="inputText">Text:</label>
+    <input type="text" id="inputText" placeholder="Text" value="Text" oninput="updatePreview()">
+    <div id="previewText">Text</div>
+    <button onclick="downloadSVG()">Download SVG</button>
+  </div>
   
-<script>
-  function updatePreview() {
-    const fontFamily = document.getElementById("fontFamily").value;
-    const inputText = document.getElementById("inputText").value;
-    const preview = document.getElementById("previewText");
-    preview.style.fontFamily = fontFamily;
-    preview.textContent = inputText;
-  }
+  <script>
+    function updatePreview() {
+      const fontFamily = document.getElementById("fontFamily").value;
+      const inputText = document.getElementById("inputText").value;
+      document.getElementById("previewText").style.fontFamily = fontFamily;
+      document.getElementById("previewText").textContent = inputText;
+    }
 
-  function downloadSVG() {
-    const fontFamily = document.getElementById("fontFamily").value;
-    const inputText = document.getElementById("inputText").value;
-    let svgContent = `<?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="106.8625" height="27.7" viewBox="0,0,106.8625,27.7">
-  <g transform="translate(-186.82001,-164.31875)">
-    <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="${fontFamily}" font-weight="normal" font-size="40" text-anchor="start" style="mix-blend-mode: normal">
-      <text transform="translate(187.07001,185.76875) scale(0.5,0.5)" font-size="40" xml:space="preserve" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="${fontFamily}" font-weight="normal" text-anchor="start" style="mix-blend-mode: normal">
-        <tspan x="0" dy="0">${inputText}</tspan>
-      </text>
-    </g>
-  </g>
+    function downloadSVG() {
+      const fontFamily = document.getElementById("fontFamily").value;
+      const inputText = document.getElementById("inputText").value;
+      let svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="100">
+  <text x="10" y="50" font-size="40" font-family="${fontFamily}" fill="black">${inputText}</text>
 </svg>`;
-
-    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "ScratchFont.svg";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-</script>
+      
+      const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ScratchFont.svg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>
